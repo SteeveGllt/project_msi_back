@@ -1,0 +1,39 @@
+---
+
+- name: Removes "default" site available
+  file:
+    path: "/etc/nginx/sites-available/default"
+    state: absent
+  notify: Reload Nginx
+
+- name: Removes "default" site enable
+  file:
+    path: "/etc/nginx/sites-enabled/default"
+    state: absent
+  notify: Reload Nginx
+
+- name: Sets Nginx conf file back
+  template:
+    src: "files/nginx.conf.j2"
+    dest: "/etc/nginx/sites-available/{{ http_conf }}"
+
+- name: Enables new site back
+  file:
+    src: "/etc/nginx/sites-available/{{ http_conf }}"
+    dest: "/etc/nginx/sites-enabled/{{ http_conf }}"
+    state: link
+  notify: Reload Nginx
+
+# UFW Configuration
+
+- name: "UFW - Allow HTTP port"
+  ufw:
+    rule: allow
+    port: "{{ http_port }}"
+    proto: tcp
+
+- name: "UFW - Allow HTTPS port"
+  ufw:
+    rule: allow
+    port: "{{ https_port }}"
+    proto: tcp

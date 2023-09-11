@@ -1,0 +1,27 @@
+---
+
+# Install Symfony CLI
+
+- name: "Check if symfony cli exist"
+  stat:
+    path: "/usr/local/bin/symfony"
+  register: result_symfony_cli
+
+- name: Download symfony-cli zip
+  ansible.builtin.get_url:
+    url: https://github.com/symfony-cli/symfony-cli/releases/download/v5.5.5/symfony-cli_linux_amd64.tar.gz
+    dest: /tmp/symfony-cli.tar.gz
+  when: not result_symfony_cli.stat.exists
+
+- name: Extract symfony-cli.tar.gz
+  ansible.builtin.unarchive:
+    src: /tmp/symfony-cli.tar.gz
+    dest: /tmp
+  when: not result_symfony_cli.stat.exists
+
+- name: Copy file with owner and permissions
+  ansible.builtin.copy:
+    src: /tmp/symfony
+    dest: /usr/local/bin/symfony
+    mode: '0777'
+  when: not result_symfony_cli.stat.exists

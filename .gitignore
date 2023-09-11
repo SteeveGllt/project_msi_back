@@ -1,0 +1,27 @@
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+/migrations/
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
+
+.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd
+
+.idea/commandlinetools/Symfony_15_04_2023_16_52.xml
+
+.idea/php.xml
+
+.idea/
+
+public/PiecesJointes/
+
+.env

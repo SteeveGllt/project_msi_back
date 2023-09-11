@@ -1,0 +1,109 @@
+---
+- hosts: localhost
+  become: true
+  vars_files:
+    - vars/default.yml
+
+  pre_tasks:
+    - name: Install Prerequisites
+      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+      loop: [ 'aptitude' ]
+
+    - name: Install LEMP Packages
+      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+      loop: [
+        'nginx',
+        'git',
+        'gpg',
+        'curl',
+        'wget',
+        'tar',
+        'ufw',
+        'mariadb-server',
+        'mariadb-client',
+        'mariadb-common',
+        'python3-pymysql',
+        'python3-pexpect',
+      ]
+
+    - name: Start Mariadb
+      service:
+        name: mariadb
+        state: started
+
+    # Php Installation
+
+    - name: Install the gpg key for PHP 8
+      apt_key:
+        url: "https://packages.sury.org/php/apt.gpg"
+        state: present
+
+    - name: Install the PHP 8 repos
+      apt_repository:
+        repo: "deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main"
+        state: present
+        update_cache: yes
+
+    - name: Install PHP Packages
+      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+      loop: [
+        'php8.2',
+        'php8.2-fpm',
+        'php8.2-mysql',
+        'php8.2-curl',
+        'php8.2-gd',
+        'php8.2-fileinfo',
+        'php8.2-gettext',
+        'php8.2-imap',
+        'php8.2-intl',
+        'php8.2-mbstring',
+        'php8.2-yaml',
+        'php8.2-uuid',
+        'php8.2-zip',
+        'php8.2-xml',
+        'php8.2-sockets',
+      ]
+
+  tasks:
+
+    # PHP Configuration
+
+    - include_tasks: tasks/php.yml
+
+    # Cli Installations
+
+    - include_tasks: tasks/cli.yml
+
+    # Nginx Configuration
+
+    - include_tasks: tasks/nginx.yml
+
+    # Mariadb Configuration
+
+    - include_tasks: tasks/mariadb.yml
+
+    # Symfony BackEnd App Installation
+
+    - include_tasks: tasks/application.yml
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+
+  handlers:
+
+    - name: Reload Nginx
+      service:
+        name: nginx
+        state: reloaded
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+
+    - name: Restart Mariadb
+      service:
+        name: mariadb
+        state: restarted

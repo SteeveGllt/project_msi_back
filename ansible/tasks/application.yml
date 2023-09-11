@@ -1,0 +1,130 @@
+---
+- name: Copy PiecesJointes Directory
+  copy:
+    src: "/var/www/msi_back/public/PiecesJointes"
+    dest: "/var/www"
+  when: "{{db_create}} == false"
+
+- name: Delete directory
+  ansible.builtin.file:
+    state: absent
+    path: /var/www/msi_back
+
+- name: Create Application Directory
+  ansible.builtin.file:
+    state: directory
+    path: /var/www/msi_back
+
+- name: Copy Application
+  copy:
+    src: ../../
+    dest: /var/www/msi_back/
+
+- name: Delete composer lock
+  ansible.builtin.file:
+    state: absent
+    path: /var/www/msi_back/composer.lock
+
+- name: Sets env file symfony
+  template:
+    src: "files/.env.j2"
+    dest: "/var/www/msi_back/.env"
+
+- name: Composer install
+  ansible.builtin.shell: composer install
+  args:
+    chdir: /var/www/msi_back/
+
+- name: Generate JWT Tokens
+  ansible.builtin.shell: symfony console lexik:jwt:generate-keypair
+  args:
+    chdir: /var/www/msi_back/
+
+- name: Locating all migrations files
+  find:
+    path: "/var/www/msi_back/migrations"
+  register: cleanup
+  ignore_errors: true
+  when: "{{db_create}} == true"
+
+- name: Removing all migrations
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ cleanup.files }}"
+  ignore_errors: true
+  when: "{{db_create}} == true"
+
+- name: Remove Old Database
+  ansible.builtin.shell: symfony console doctrine:database:drop --force
+  args:
+    chdir: /var/www/msi_back/
+  when: "{{db_create}} == true"
+
+- name: Generate Database
+  ansible.builtin.shell: symfony console doctrine:database:create
+  args:
+    chdir: /var/www/msi_back/
+  when: "{{db_create}} == true"
+
+- name: Generate Migrations
+  ansible.builtin.shell: symfony console doctrine:migrations:diff
+  args:
+    chdir: /var/www/msi_back/
+  when: "{{db_create}} == true"
+
+- name: Execute Migrations
+  ansible.builtin.shell: symfony console doctrine:migration:migrate
+  args:
+    chdir: /var/www/msi_back/
+  when: "{{db_create}} == true"
+
+- name: Execute Fixtures
+  ansible.builtin.shell: echo "yes" | symfony console doctrine:fixtures:load
+  args:
+    chdir: /var/www/msi_back/
+  when: "{{db_create}} == true"
+
+- name: Copy PiecesJointes Directory Back to App
+  copy:
+    src: "/var/www/PiecesJointes"
+    dest: "/var/www/msi_back/public"
+  when: "{{db_create}} == false"
+
+- name: Delete dossier copie PiecesJoinetes
+  ansible.builtin.file:
+    path: "/var/www/PiecesJointes"
+    state: absent
+  when: "{{db_create}} == false"
+
+- name: Change to Prod Env Symfony
+  replace:
+    path: /var/www/msi_back/.env
+    regexp: 'APP_ENV=dev'
+    replace: "APP_ENV=production"
+  when: "{{db_create}} == false"
+
+- name: Create PiecesJointes Directory
+  ansible.builtin.file:
+    state: directory
+    path: /var/www/msi_back/public/PiecesJointes
+    mode: '777'
+  when: "{{db_create}} == true"
+
+- name: Change path Command for CRON
+  replace:
+    path: /var/www/msi_back/src/Command/AutoMailCommand.php
+    regexp: 'public/PiecesJointes/'
+    replace: '/var/www/msi_back/public/PiecesJointes/'
+
+- name: Run CRON job to load data at every minute of every hour.
+  ansible.builtin.cron:
+    name: "load_mails"
+    state: present
+    minute: "*"
+    hour: "*"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    user: root
+    job: 'su root -c "php -q /var/www/msi_back/bin/console app:auto-mail"'

@@ -1,0 +1,11 @@
+---
+db_name: "project_msi"
+db_password: "donperignon"
+db_create: "false"
+app_url: "msiapi.groupemontroland.fr"
+app_url_front: "msi.groupemontroland.fr"
+http_host: "msiapi.groupemontroland.fr www.msiapi.groupemontroland.fr"
+http_conf: "msiapi.groupemontroland.fr.conf"
+http_port: "80"
+https_port: "443"
+

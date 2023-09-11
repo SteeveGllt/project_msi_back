@@ -1,0 +1,102 @@
+---
+
+# Set php 8 version
+- name: Removes php 7 bin
+  file:
+    path: "/usr/bin/php"
+    state: absent
+
+- name: Create a symbolic link PHP 8
+  ansible.builtin.file:
+    src: /usr/bin/php8.2
+    dest: /usr/bin/php
+    state: link
+
+# Install Composer
+
+- name: Download and install Composer
+  shell: curl -sS https://getcomposer.org/installer | php
+  args:
+    chdir: /usr/src/
+    creates: /usr/local/bin/composer
+    warn: false
+  become: yes
+
+- name: Add Composer to global path
+  copy:
+    dest: /usr/local/bin/composer
+    group: root
+    mode: '0755'
+    owner: root
+    src: /usr/src/composer.phar
+    remote_src: yes
+  become: yes
+
+# Set Php Ini
+
+- name: Enable php8.2-curl module
+  replace:
+    path: /etc/php/8.2/cli/php.ini
+    regexp: ';extension=curl'
+    replace: "extension=curl"
+
+- name: Enable php8.2-fileinfo module
+  replace:
+    path: /etc/php/8.2/cli/php.ini
+    regexp: ';extension=fileinfo'
+    replace: "extension=fileinfo"
+
+- name: Enable php8.2-gd module
+  replace:
+    path: /etc/php/8.2/cli/php.ini
+    regexp: ';extension=gd'
+    replace: "extension=gd"
+
+- name: Enable php8.2-gettext module
+  replace:
+    path: /etc/php/8.2/cli/php.ini
+    regexp: ';extension=gettext'
+    replace: "extension=gettext"
+
+- name: Enable php8.2-intl module
+  replace:
+    path: /etc/php/8.2/cli/php.ini
+    regexp: ';extension=intl'
+    replace: "extension=intl"
+
+- name: Enable php8.2-imap module
+  replace:
+    path: /etc/php/8.2/cli/php.ini
+    regexp: ';extension=imap'
+    replace: "extension=imap"
+
+- name: Enable php8.2-mbstring module
+  replace:
+    path: /etc/php/8.2/cli/php.ini
+    regexp: ';extension=mbstring'
+    replace: "extension=mbstring"
+
+- name: Enable php8.2-mysqli module
+  replace:
+    path: /etc/php/8.2/cli/php.ini
+    regexp: ';extension=mysqli'
+    replace: "extension=mysqli"
+
+- name: Enable php8.2-openssl module
+  replace:
+    path: /etc/php/8.2/cli/php.ini
+    regexp: ';extension=openssl'
+    replace: "extension=openssl"
+
+- name: Enable php8.2-pdo_mysql module
+  replace:
+    path: /etc/php/8.2/cli/php.ini
+    regexp: ';extension=pdo_mysql'
+    replace: "extension=pdo_mysql"
+
+- name: Enable php8.2-zip module
+  replace:
+    path: /etc/php/8.2/cli/php.ini
+    regexp: ';extension=zip'
+    replace: "extension=zip"
+

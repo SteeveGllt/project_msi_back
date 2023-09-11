@@ -1,0 +1,1051 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "MSI",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/commentaire": {
+            "get": {
+                "tags": [
+                    "Commentaire"
+                ],
+                "description": "Cette route permet de retourner tous les commenataires stocké en base de donnée.",
+                "operationId": "27601a88638276ad805e958abe1a5927",
+                "responses": {
+                    "200": {
+                        "description": "Retourne tous les commenataires sur un ticket stocké en base de donnée.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Commentaire"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Commentaire"
+                ],
+                "description": "Cette route permet de retourner tous les commenataires stocké en base de donnée.",
+                "operationId": "58a1b28e59546f8cdebf6e16d078dd5e",
+                "responses": {
+                    "200": {
+                        "description": "Retourne un message de succès si la suppression du commentaire a eu lieu en base de données."
+                    },
+                    "500": {
+                        "description": "Retourne un message d'erreur si la suppression du commentaire n'a pas eu lieu en base de données."
+                    }
+                }
+            }
+        },
+        "/api/etats": {
+            "get": {
+                "tags": [
+                    "Etat"
+                ],
+                "description": "Cette route permet de retourner tous les états présentes en base de données au format Json.",
+                "operationId": "6d7574063a0ca40f5f2dc1e128455ea8",
+                "responses": {
+                    "200": {
+                        "description": "Retourne tous les états au format JSON.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Etat"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/etat/{id}": {
+            "get": {
+                "tags": [
+                    "Etat"
+                ],
+                "description": "Cette route permet de retourner l'état dont l'id est passé en paramètre au format Json.",
+                "operationId": "d4e49678b8bf45466cd07f14d14849a5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "L'id de la l'état que nous voulons récupéré !",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne l'état dont l'id est passé en paramètre au format JSON.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Etat"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/create-etat": {
+            "get": {
+                "tags": [
+                    "Etat"
+                ],
+                "description": "Cette route permet de récupéré l'état d'un ticket dont l'id est passé en paramètre.",
+                "operationId": "8747952508761adac01d421f76509b78",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "L'id du ticket dont nous voulons récupéré l'état",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne au format Json l'état qui vient d'être créé et enregistrer en base de données.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Etat"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Etat"
+                ],
+                "description": "Cette route permet de créer un état en base de donnée.",
+                "operationId": "7d5362b88d3c05c4255d4197009aeac1",
+                "responses": {
+                    "200": {
+                        "description": "Retourne au format Json l'état qui vient d'être créé et enregistrer en base de données.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Etat"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/edit-etat/{id}": {
+            "put": {
+                "tags": [
+                    "Etat"
+                ],
+                "description": "Cette route permet de modifier un état déjà existant en base de donnée.",
+                "operationId": "319497f57fd086b26580c5167862cf29",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "L'id de la l'état que nous voulons modifier !",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne au format Json l'état qui vient d'être modifié et enregistrer en base de données.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Etat"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/delete-etat/{id}": {
+            "delete": {
+                "tags": [
+                    "Etat"
+                ],
+                "description": "Cette route permet de supprimer de la base de donnée un état existant ",
+                "operationId": "c20665becced619e542d4136cef6d210",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "L'id de la l'état que nous voulons supprimer !",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne un message de succès si la suppression de l'état a eu lieu en base de données."
+                    },
+                    "500": {
+                        "description": "Retourne un message d'erreur si la suppression de l'état n'a pas eu lieu en base de données."
+                    }
+                }
+            }
+        },
+        "/api/nb-piece-jointe/ticket/{ticketId}": {
+            "get": {
+                "tags": [
+                    "PieceJointe"
+                ],
+                "description": "Cette route permet de récupérer le nombre de pieces jointes d'un ticket dont l'id a été passé en paramètre",
+                "operationId": "42e54fe2e6f09e81a04239e9599e705c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "L'id du ticket que nous voulons modifier !",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne au format Json l'état qui vient d'être modifié et enregistrer en base de données.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "int",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PieceJointe"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Retourne au format Json une erreur ainsi que son message"
+                    }
+                }
+            }
+        },
+        "/api/salles": {
+            "get": {
+                "tags": [
+                    "Salle"
+                ],
+                "description": "Cette route permet de retourner toutes les salles présentes en base de données au format Json.",
+                "operationId": "51a8433fe3628f731dc78dfa21fdaffb",
+                "responses": {
+                    "200": {
+                        "description": "Retourne toutes les salles au format JSON.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Salle"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/salle/{id}": {
+            "get": {
+                "tags": [
+                    "Salle"
+                ],
+                "description": "Cette route permet de retourner une salle en fonction de son id au format Json.",
+                "operationId": "caa70e685ed9d37a804ac82f3876765a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "L'id de la salle que nous voulons récupérer !",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne une salle au format JSON.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Salle"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/create-salle": {
+            "post": {
+                "tags": [
+                    "Salle"
+                ],
+                "description": "Cette route permet de créer une salle en base de données.",
+                "operationId": "f713e36c65c85d1613cc60548d8a0002",
+                "responses": {
+                    "200": {
+                        "description": "Retourne la salle créée au format JSON.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Salle"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/edit-salle/{id}": {
+            "put": {
+                "tags": [
+                    "Salle"
+                ],
+                "description": "Cette route permet de modifier une salle en base de données.",
+                "operationId": "55fc3b62eac4a9aa01147df696297e85",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "L'id de la salle que nous voulons modifier !",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne la salle modifiée au format JSON.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Salle"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/delete-salle/{id}": {
+            "delete": {
+                "tags": [
+                    "Salle"
+                ],
+                "description": "Cette route permet de supprimer une salle en base de données.",
+                "operationId": "c00d03611e3dc6220d98e31858d12e80",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "L'id de la salle que nous voulons supprimer !",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne un message de succès si la suppression du ticket a eu lieu en base de données."
+                    },
+                    "500": {
+                        "description": "Retourne un message d'erreur si la suppression du ticket n'a pas eu lieu en base de données."
+                    }
+                }
+            }
+        },
+        "/api/tickets": {
+            "get": {
+                "tags": [
+                    "Ticket"
+                ],
+                "description": "Cette route permet de retourner tous les tickets présentes en base de données au format Json.",
+                "operationId": "2dd237014b81ff1746a462dbcd6d7c4f",
+                "responses": {
+                    "200": {
+                        "description": "Retourne tous les tickets au format JSON.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Ticket"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ticket/{id}": {
+            "get": {
+                "tags": [
+                    "Ticket"
+                ],
+                "description": "Cette route permet de retourner le ticket dont l'id est passé en paramètre au format Json.",
+                "operationId": "0558ca12e37a305e527355ec8ae4aa32",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "L'id du ticket que nous voulons récupérer !",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne tous le tickets au format JSON.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Ticket"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/create-ticket": {
+            "post": {
+                "tags": [
+                    "Ticket"
+                ],
+                "description": "Cette route permet de modifier un ticket déjà existant en base de donnée.",
+                "operationId": "1889afd4e70fb4aa54d2ad743d506701",
+                "responses": {
+                    "200": {
+                        "description": "Retourne au format Json le ticket qui vient d'être modifié et enregistrer en base de données.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Ticket"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/edit-ticket/{id}": {
+            "put": {
+                "tags": [
+                    "Ticket"
+                ],
+                "description": "Cette route permet de modifier un ticket déjà existant en base de donnée.",
+                "operationId": "d7817a89f9d836682b145910261221dc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "L'id du ticket que nous voulons modifier !",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne au format Json l'état qui vient d'être modifié et enregistrer en base de données.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Ticket"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Retourne au format Json une erreur ainsi que son message"
+                    }
+                }
+            }
+        },
+        "/api/delete-ticket/{id}": {
+            "delete": {
+                "tags": [
+                    "Ticket"
+                ],
+                "description": "Cette route permet de supprimer de la base de donnée un ticket existant ",
+                "operationId": "68fbde75946e959d0612e49ff95fd42e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "L'id du ticket que nous voulons supprimer !",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne un message de succès si la suppression du ticket a eu lieu en base de données."
+                    },
+                    "500": {
+                        "description": "Retourne un message d'erreur si la suppression du ticket n'a pas eu lieu en base de données."
+                    }
+                }
+            }
+        },
+        "/api/ticket-add-user/{idTicket}": {
+            "post": {
+                "tags": [
+                    "Ticket"
+                ],
+                "description": "Cette route permet de taguer un ou plusieurs utilisateurs à un ticket enregistré en base de donnée",
+                "operationId": "6e6fce4a4e9bddc75c72a7024770722d",
+                "parameters": [
+                    {
+                        "name": "idTicket",
+                        "in": "path",
+                        "description": "L'id du ticket sur lequel nous voulons tagué le(s) user(s) ",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne un message de succès l'ajout de user(s) au ticket a eu lieu en base de données."
+                    },
+                    "501": {
+                        "description": "Retourne un message d'erreur si il n'y a pas d'user dans le body"
+                    }
+                }
+            }
+        },
+        "/api/ticket-user/{idUser}": {
+            "get": {
+                "tags": [
+                    "Ticket"
+                ],
+                "description": "Cette route permet de récupérer tout les tickets dont le user passé en paramètre est tagué",
+                "operationId": "966db0f702faa57baf5bc11ff3fad307",
+                "parameters": [
+                    {
+                        "name": "idUser",
+                        "in": "path",
+                        "description": "L'id du user dont nous voulons récupérer les tickets",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne le tickets au format JSON.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Ticket"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/add-commentaire/{ticketId}": {
+            "post": {
+                "tags": [
+                    "Ticket"
+                ],
+                "description": "Cette route permet cette route permet d'ajouter un commentaire sur un ticket stocké en base de donnée dont l'id est passé en paramètre.",
+                "operationId": "ffed6fb6a8be0058e02de71711d50191",
+                "parameters": [
+                    {
+                        "name": "ticketId",
+                        "in": "path",
+                        "description": "L'id du ticket sur lequel nous voulons ajouter un commentaire.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne le tickets sur lequel nous vennons d'ajouter un commentaire au format JSON.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Ticket"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ticket-change/{ticketId}/etat/{etatId}": {
+            "put": {
+                "tags": [
+                    "Ticket"
+                ],
+                "description": "Cette route permet de changer l'état d'un ticket stocké en base de donnée dont les id sont passés en paramètre.",
+                "operationId": "dc78fae13f40aec3fd5e778faf14c874",
+                "parameters": [
+                    {
+                        "name": "ticketId",
+                        "in": "path",
+                        "description": "L'id du ticket dont nous voulons changer l'état",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "etatId",
+                        "in": "path",
+                        "description": "L'id de l'état que nous voulons assigné au ticket",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne un message de succès si le changement d'état a eu lieu en base de données."
+                    },
+                    "500": {
+                        "description": "Retourne un message d'erreur si le changement d'état n'a pas eu lieu en base de données."
+                    }
+                }
+            }
+        },
+        "/ticket-change/{ticketId}/salle/{salleId}": {
+            "put": {
+                "tags": [
+                    "Ticket"
+                ],
+                "description": "Cette route permet de changer la salle d'un ticket stocké en base de donnée dont les id sont passés en paramètre.",
+                "operationId": "5a06d572bf40e2530d14842a464f6c38",
+                "parameters": [
+                    {
+                        "name": "ticketId",
+                        "in": "path",
+                        "description": "L'id du ticket dont nous voulons changer la salle",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "salleId",
+                        "in": "path",
+                        "description": "L'id de la salle que nous voulons assigné au ticket",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne un message de succès si le changement de salle a eu lieu en base de données."
+                    },
+                    "500": {
+                        "description": "Retourne un message d'erreur si le changement de salle n'a pas eu lieu en base de données."
+                    }
+                }
+            }
+        },
+        "/ticket-change-repondu/{ticketId}": {
+            "put": {
+                "tags": [
+                    "Ticket"
+                ],
+                "description": "Cette route permet de changer l'attribut répondu d'un ticket stocké en base de donnée dont les id sont passés en paramètre.",
+                "operationId": "5ea2c5728dc65a31d5c3db2c987aceba",
+                "parameters": [
+                    {
+                        "name": "ticketId",
+                        "in": "path",
+                        "description": "L'id du ticket dont nous voulons changer l'attribut répondu",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne un message de succès si le changement eu lieu en base de données."
+                    },
+                    "500": {
+                        "description": "Retourne un message d'erreur si le changement n'a pas eu lieu en base de données."
+                    }
+                }
+            }
+        },
+        "/tickets-date-limite": {
+            "get": {
+                "tags": [
+                    "Ticket"
+                ],
+                "description": "Cette route permet de récupérer les tickets triés par date limite",
+                "operationId": "a683b43c5aac2042063031337ffa0f52",
+                "responses": {
+                    "200": {
+                        "description": "Retourne les tickets triés par date limite au format JSON.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Ticket"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/add-user/{idUser}/ticket/{idTicket}": {
+            "put": {
+                "tags": [
+                    "Ticket"
+                ],
+                "description": "Cette route permet d'ajouter un utilisateur à un ticket",
+                "operationId": "b18ac8684ae9d0fe385594c05e79a76a",
+                "parameters": [
+                    {
+                        "name": "idUser",
+                        "in": "path",
+                        "description": "L'id de l'utilisateur à ajouter au ticket",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "idTicket",
+                        "in": "path",
+                        "description": "L'id du ticket auquel on veut ajouter l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne un message de succès si l'ajout a eu lieu en base de données."
+                    },
+                    "500": {
+                        "description": "Retourne un message d'erreur si l'ajout n'a pas eu lieu en base de données."
+                    }
+                }
+            }
+        },
+        "/delete-user/{idUser}/ticket/{idTicket}": {
+            "delete": {
+                "tags": [
+                    "Ticket"
+                ],
+                "description": "Cette route permet de supprimer un utilisateur d'un ticket",
+                "operationId": "16838b7735e1341417ee3ca5a691e363",
+                "parameters": [
+                    {
+                        "name": "idUser",
+                        "in": "path",
+                        "description": "L'id de l'utilisateur à supprimer du ticket",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "idTicket",
+                        "in": "path",
+                        "description": "L'id du ticket duquel on veut supprimer l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne un message de succès si la suppression a eu lieu en base de données."
+                    },
+                    "500": {
+                        "description": "Retourne un message d'erreur si la suppression n'a pas eu lieu en base de données."
+                    }
+                }
+            }
+        },
+        "/api/utilisateurs": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Cette route permet de retourner tous les utilisateurs présentes en base de données au format Json.",
+                "operationId": "52c76720fa3a15a8424c02b90f155ac8",
+                "responses": {
+                    "200": {
+                        "description": "Retourne tous les utilisateurs au format JSON.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/utilisateur/{email}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Cette route permet de retourner un utilisateur en fonction de son email au format Json.",
+                "operationId": "9abcba0b3067cb5ac561dfa4d6f9b7a9",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "L'email de l'utilisateur que nous voulons récupérer !",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne un message de succès si la suppression du ticket a eu lieu en base de données."
+                    },
+                    "500": {
+                        "description": "Retourne un message d'erreur si la suppression du ticket n'a pas eu lieu en base de données."
+                    }
+                }
+            }
+        },
+        "/api/create-utilisateur": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "description": "Cette route permet de créer un utilisateur en base de données.",
+                "operationId": "9f464ad22ef3cadadcc9a0baec499e7a",
+                "responses": {
+                    "200": {
+                        "description": "Retourne l'utilisateur créé au format JSON.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Commentaire": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "contenu": {
+                        "type": "string",
+                        "format": "text"
+                    },
+                    "created": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "Etat": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "libelle": {
+                        "type": "string"
+                    },
+                    "ordre": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "Salle": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "libelle": {
+                        "type": "string"
+                    },
+                    "tickets": {
+                        "$ref": "#/components/schemas/Ticket"
+                    }
+                },
+                "type": "object"
+            },
+            "Ticket": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "mail_expediteur": {
+                        "type": "string"
+                    },
+                    "mail_destinataire": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "objet": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "date_creation": {
+                        "type": "string",
+                        "format": "datetime"
+                    },
+                    "date_limite": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "etat": {
+                        "$ref": "#/components/schemas/Etat"
+                    },
+                    "commentaire": {
+                        "type": "App\\Entity\\Commentaire",
+                        "format": "ArrayObject"
+                    },
+                    "utilisateur": {
+                        "type": "App\\Entity\\User",
+                        "format": "App\\Entity\\ArrayObject"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "password": {
+                        "description": "The hashed password",
+                        "type": "string"
+                    },
+                    "nom": {
+                        "type": "string"
+                    },
+                    "prenom": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
